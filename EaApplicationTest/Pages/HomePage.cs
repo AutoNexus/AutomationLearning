@@ -12,16 +12,16 @@ namespace EaApplicationTest.Pages
 {
     public class HomePage
     {
-        private readonly IDriverFixture _driverFixture;
+        private readonly IDriverWait _driver;
 
-        public HomePage(IDriverFixture driverFixture)
+        public HomePage(IDriverWait driver)
         {
-            _driverFixture = driverFixture;
+            _driver = driver;
         }
 
-        private IWebElement lnkHome => _driverFixture.Driver.FindElement(By.LinkText("Home"));
-        private IWebElement lnkPrivacy => _driverFixture.Driver.FindElement(By.LinkText("Privacy"));
-        private IWebElement lnkProduct => _driverFixture.Driver.FindElement(By.LinkText("Product"));
+        private IWebElement lnkHome => _driver.FindElement(By.LinkText("Home"));
+        private IWebElement lnkPrivacy => _driver.FindElement(By.LinkText("Privacy"));
+        private IWebElement lnkProduct => _driver.FindElement(By.LinkText("Product"));
 
 
         public void ClickProduct()

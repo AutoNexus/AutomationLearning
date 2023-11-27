@@ -9,28 +9,32 @@ namespace EaApplicationTest
     public class UnitTest1 : IDisposable
     {
         private IDriverFixture _driverFixture;
+        private IDriverWait _driverWait;
         private HomePage _homePage;
         private ProductPage _productPage;
         public UnitTest1()
         {
-            var testSettings = new TestSettings()
-            {
-                ApplicationUrl = "http://localhost:33084/",
-                Browser = BrowserType.Chrome,
-                TimeoutInterval = 30
-            };
+            //var testSettings = new TestSettings()
+            //{
+            //    ApplicationUrl = "http://localhost:33084/",
+            //    Browser = BrowserType.Chrome,
+            //    TimeoutInterval = 30
+            //};
+            var testSettings = ConfigReader.ReadConfig();
             _driverFixture = new DriverFixture(testSettings);
-            _homePage = new HomePage(_driverFixture);
-            _productPage = new ProductPage(_driverFixture);
+            _driverWait = new DriverWait(_driverFixture, testSettings);
+
+            _homePage = new HomePage(_driverWait);
+            _productPage = new ProductPage(_driverWait);
         }
 
         [Fact]
         public void Test1()
         {
             _homePage.ClickProduct();
-            _productPage.PerformClickOnSpecialValue("First Product", "Details");
-           // _productPage.ClickCreateButton();
-           // _productPage.CreateProduct(name: "First Product", description: "First Prod Desc", price: "100", productType: "MONITOR");
+           // _productPage.PerformClickOnSpecialValue("First Product", "Details");
+            _productPage.ClickCreateButton();
+            _productPage.CreateProduct(name: "First Product", description: "First Prod Desc", price: "100", productType: "MONITOR");
         }
 
         [Theory]
